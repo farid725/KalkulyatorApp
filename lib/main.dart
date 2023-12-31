@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String result = '0';
   String expression = '';
 
-  buttonPresed(btnText) {
+  /*buttonPresed(btnText) {
     if (btnText == 'AC') {
       equation = '0';
       result = '0';
@@ -60,7 +60,40 @@ class _MyHomePageState extends State<MyHomePage> {
         equation = equation + btnText;
       }
     }
-  }
+  }*/
+
+  buttonPresed(btnText) {
+    if (btnText == 'AC') {
+      equation = '0';
+      result = '0';
+    } else if (btnText == '⌫') {
+      if (equation != '0' && equation.length > 1) {
+        equation = equation.substring(0, equation.length - 1);
+      } else {
+        equation = '0';
+      }
+    } else if (btnText == '=') {
+      expression = equation;
+      expression = expression.replaceAll('x', '*');
+      expression = expression.replaceAll('÷', '/');
+      try {
+        Parser p = Parser();
+        Expression exp = p.parse(expression);
+        ContextModel cm = ContextModel();
+        result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+      } catch (e) {
+        result = 'Error';
+      }
+    } else {
+      if (equation == '0') {
+        equation = btnText;
+      } else {
+        equation = equation + btnText;
+      }
+    }
+    setState(() {}); // Bu qatorni qo'shing
+  } // bu kodni ChatGPT tuzdi
+
 
   Widget calbuttons(
       String btnText, Color txtColor, double btnWidth, Color btnColor) {
@@ -97,9 +130,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         backgroundColor: Colors.amber,
-        title: Text(
-          widget.title,
-          style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+        title: Container(
+          padding: const EdgeInsets.symmetric(
+              vertical:
+                  8),
+          // orijinal qadamlar o'chirilgan va padding qo'shilgan
+          child: Text(
+            widget.title,
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+          ),
         ),
       ),
       body: Column(
@@ -141,16 +180,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20.0),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    calbuttons('AC', Colors.white, 80, Colors.deepOrangeAccent[100]!),
-                    calbuttons('⋘', Colors.white, 80, Colors.white38),
+                    calbuttons(
+                        'AC', Colors.white, 80, Colors.deepOrangeAccent[100]!),
+                    calbuttons('⌫', Colors.white, 80, Colors.white38),
                     calbuttons('%', Colors.white, 80, Colors.white38),
-                    calbuttons('÷', Colors.white, 80, Colors.deepOrangeAccent[100]!),
+                    calbuttons(
+                        '÷', Colors.white, 80, Colors.deepOrangeAccent[100]!),
                   ],
                 ),
                 const SizedBox(
