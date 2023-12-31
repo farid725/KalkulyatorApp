@@ -174,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: SingleChildScrollView(
               child: Text(
                 result,
-                style: TextStyle(fontSize: 60, color: Colors.white),
+                style: TextStyle(fontSize: 30, color: Colors.white),
               ),
             ),
           ),
