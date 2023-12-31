@@ -91,9 +91,10 @@ class _MyHomePageState extends State<MyHomePage> {
         equation = equation + btnText;
       }
     }
-    setState(() {}); // Bu qatorni qo'shing
-  } // bu kodni ChatGPT tuzdi
+    setState(() {}); // Add this line
+  }
 
+  // This code above was compiled by ChatGPT
 
   Widget calbuttons(
       String btnText, Color txtColor, double btnWidth, Color btnColor) {
@@ -131,9 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: Colors.amber,
         title: Container(
-          padding: const EdgeInsets.symmetric(
-              vertical:
-                  8),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           // orijinal qadamlar o'chirilgan va padding qo'shilgan
           child: Text(
             widget.title,
